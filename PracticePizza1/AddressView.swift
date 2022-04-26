@@ -10,7 +10,25 @@ import SwiftUI
 struct AddressView: View {
     @StateObject var order: Order
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            Section {
+                TextField("Họ và tên", text: $order.name)
+                TextField("Số điện thoại", text: $order.phoneNumber)
+                    .keyboardType(.numberPad)
+                TextField("Địa chỉ", text: $order.streetAddress)
+                TextField("Thành phố", text: $order.city)
+            }
+            
+            Section {
+                NavigationLink {
+                    CheckoutView(order: order)
+                } label: {
+                    Text("Thanh toán")
+                }
+            }
+            .disabled(!order.addressIsValidated)
+            
+        }
     }
 }
 
